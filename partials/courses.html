@@ -2,21 +2,23 @@
   <h3>Add a new course</h3>
   <form ng-submit="CoursesFactory.addCourse()" class="form-inline" role="form" >
     <div class="form-group well">
-      <input type="text" ng-model="CoursesFactory.courseName" class="form-control" placeholder="Enter a course name">
+      <input type="text" ng-model="CoursesFactory.courseName" class="form-control" placeholder="Enter a course name" required>
       <button type="submit" class="btn btn-default">Submit</button>
     </div>
   </form>
 </div>
 
 <div ng-show="courses.length">
-  <h1>Courses:</h1>
-  <ul class='list-unstyled'>
-    <li ng-repeat="item in courses" class="col-md-12">
-      <a class='well col-md-2' ui-sref="courses.students({ courseId: item.id })">{{item.name}}</a>
-    </li>
-  </ul>
+  <div class="col-md-12">
+    <h1>Courses:</h1>
+    <ul class='list-unstyled'>
+      <li class="course" ng-repeat="item in courses">
+        <div ng-class="{ selected: item.show }">
+          <a ng-hide='item.show' class='' ng-click="CoursesFactory.toggle(item)" ui-sref="courses.students({ courseId: item.id })">{{item.name}}</a>
+          <div ng-show="item.show"  ui-view></div>
+          <hr class='col-md-12'/>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
-
-
-
-<div ui-view></div>
